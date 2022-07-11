@@ -11,7 +11,7 @@ class _ProfileTabPageState extends State<ProfileTabPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("profile"),
+      child: Text("rating"),
     );
   }
 }

@@ -10,6 +10,9 @@ class RatingTabPage extends StatefulWidget {
 class _RatingTabPageState extends State<RatingTabPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Text("profile"),
+    );
+    ;
   }
 }

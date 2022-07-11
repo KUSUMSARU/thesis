@@ -5,6 +5,8 @@ import 'package:rentomatic_app/tabpages/profile_tab.dart';
 import 'package:rentomatic_app/tabpages/ratings_tab.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({Key? key}) : super(key: key);
+
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
@@ -14,17 +16,16 @@ class _MainScreenState extends State<MainScreen>
   TabController? tabController;
   int selectedIndex = 0;
 
+  onItemClicked(int index) {
+    setState(() {
+      selectedIndex = index;
+      tabController!.index = selectedIndex;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-
-    onItemClicked(int index) {
-      setState(() {
-        selectedIndex = index;
-        tabController!.index = selectedIndex;
-      });
-    }
-
     tabController = TabController(length: 4, vsync: this);
   }
 
@@ -32,7 +33,7 @@ class _MainScreenState extends State<MainScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: TabBarView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: tabController,
         children: [
           HomeTabPage(),
@@ -47,7 +48,19 @@ class _MainScreenState extends State<MainScreen>
             icon: Icon(Icons.home),
             label: "Home",
           ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.credit_card), label: "Earning"),
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: "rating"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account")
         ],
+        unselectedItemColor: Colors.white54,
+        selectedItemColor: Colors.white,
+        backgroundColor: Colors.black,
+        type: BottomNavigationBarType.fixed,
+        selectedLabelStyle: const TextStyle(fontSize: 14),
+        showUnselectedLabels: true,
+        currentIndex: selectedIndex,
+        onTap: onItemClicked,
       ),
     );
   }
