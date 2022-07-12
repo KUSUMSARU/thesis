@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:rentomatic_app/authentication/singup_screen.dart';
 import 'package:rentomatic_app/mainScreen/main_screen.dart';
 
 class MySplashScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
       //send user to home screen
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (c) => MainScreen()),
+        MaterialPageRoute(builder: (c) => SingUpScreen()),
       );
     });
     //send user to home screen
