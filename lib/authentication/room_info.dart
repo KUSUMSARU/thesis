@@ -1,48 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:rentomatic_app/authentication/room_info.dart';
 
-class SingUpScreen extends StatefulWidget {
+class RoomInfoScreen extends StatefulWidget {
+  RoomInfoScreen({Key? key}) : super(key: key);
+
   @override
-  State<SingUpScreen> createState() => _SingUpScreenState();
+  State<RoomInfoScreen> createState() => _RoomInfoScreenState();
 }
 
-class _SingUpScreenState extends State<SingUpScreen> {
-  TextEditingController nametextEditingController = TextEditingController();
-  TextEditingController emailtextEditingController = TextEditingController();
+class _RoomInfoScreenState extends State<RoomInfoScreen> {
+  TextEditingController ownertextEditingController = TextEditingController();
+  TextEditingController addresstextEditingController = TextEditingController();
   TextEditingController phonetextEditingController = TextEditingController();
-  TextEditingController passwordtextEditingController = TextEditingController();
+  TextEditingController roomtypetextEditingController = TextEditingController();
 
+  List<String> roomTypeList = ["Room", "Apartment", "House"];
+  String? selectedroomtype;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(1.0),
+          padding: const EdgeInsets.all(0.0),
           child: Column(
             children: [
-              const SizedBox(height: 10),
+              const SizedBox(height: 3),
               Padding(
                 padding: const EdgeInsets.all(0.0),
                 child: Image.asset("assets/image.jpg"),
               ),
               const SizedBox(height: 10),
               const Text(
-                "Register as a Owner",
+                "Room and Apartment detail",
                 style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 15,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               TextField(
-                controller: nametextEditingController,
+                controller: ownertextEditingController,
                 style: const TextStyle(
                   color: Colors.grey,
                 ),
                 decoration: const InputDecoration(
-                  labelText: "Name",
-                  hintText: "Name",
+                  labelText: "Room/Apartment Address",
+                  hintText: "Address",
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
@@ -52,19 +55,18 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   hintStyle: TextStyle(color: Colors.grey, fontSize: 10),
                   labelStyle: TextStyle(
                     color: Colors.grey,
-                    fontSize: 20,
+                    fontSize: 14,
                   ),
                 ),
               ),
               TextField(
-                controller: emailtextEditingController,
-                keyboardType: TextInputType.emailAddress,
+                controller: addresstextEditingController,
                 style: const TextStyle(
                   color: Colors.grey,
                 ),
                 decoration: const InputDecoration(
-                  labelText: "E-Mail",
-                  hintText: "E-Mail",
+                  labelText: "address",
+                  hintText: "address",
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
@@ -74,7 +76,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   hintStyle: TextStyle(color: Colors.grey, fontSize: 10),
                   labelStyle: TextStyle(
                     color: Colors.grey,
-                    fontSize: 20,
+                    fontSize: 14,
                   ),
                 ),
               ),
@@ -85,8 +87,8 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   color: Colors.grey,
                 ),
                 decoration: const InputDecoration(
-                  labelText: "Contact",
-                  hintText: "Contact",
+                  labelText: "PhoneNumber",
+                  hintText: "number",
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
@@ -96,20 +98,19 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   hintStyle: TextStyle(color: Colors.grey, fontSize: 10),
                   labelStyle: TextStyle(
                     color: Colors.grey,
-                    fontSize: 20,
+                    fontSize: 14,
                   ),
                 ),
               ),
               TextField(
-                controller: passwordtextEditingController,
+                controller: roomtypetextEditingController,
                 keyboardType: TextInputType.text,
-                obscureText: true,
                 style: const TextStyle(
                   color: Colors.grey,
                 ),
                 decoration: const InputDecoration(
-                  labelText: "Password",
-                  hintText: "Password",
+                  labelText: "RoomType",
+                  hintText: "RoomType",
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
@@ -124,6 +125,35 @@ class _SingUpScreenState extends State<SingUpScreen> {
                 ),
               ),
               const SizedBox(height: 20),
+              DropdownButton(
+                iconSize: 20,
+                dropdownColor: Colors.black,
+                hint: const Text(
+                  "Please choose room type",
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey,
+                  ),
+                ),
+                value: selectedroomtype,
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedroomtype = newValue.toString();
+                  });
+                },
+                items: roomTypeList.map((room) {
+                  return DropdownMenuItem(
+                    child: Text(
+                      room,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    value: room,
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   //todo
@@ -134,7 +164,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   primary: Colors.lightGreenAccent,
                 ),
                 child: const Text(
-                  "Create Account",
+                  "Save Now",
                   style: TextStyle(
                     color: Colors.black54,
                     fontSize: 18,
