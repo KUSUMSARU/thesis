@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rentomatic_app/authentication/login_screen.dart';
 import 'package:rentomatic_app/authentication/room_info.dart';
+import 'package:rentomatic_app/widgets/progress_dialog.dart';
 
 class SingUpScreen extends StatefulWidget {
   @override
@@ -23,6 +24,15 @@ class _SingUpScreenState extends State<SingUpScreen> {
       Fluttertoast.showToast(msg: "phone number is empty");
     } else if (passwordtextEditingController.text.length < 6) {
       Fluttertoast.showToast(msg: "Password must be 6 character");
+    } else {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext c) {
+            return ProgressDialog(
+              message: "Processing,Please wait...",
+            );
+          });
     }
   }
 
