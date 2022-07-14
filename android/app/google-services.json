@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "965445370914",
+    "firebase_url": "https://rentomatic-100bd-default-rtdb.firebaseio.com",
+    "project_id": "rentomatic-100bd",
+    "storage_bucket": "rentomatic-100bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965445370914:android:2ec1fed4b15f108e11b67b",
+        "android_client_info": {
+          "package_name": "com.kusumsaru.rentomaticapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965445370914-11b28huk4k04h03fk9eakbrvqkhrhgsn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB62CVMe-Agi90iTTPyj4DyBMmQrVVYYjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965445370914-11b28huk4k04h03fk9eakbrvqkhrhgsn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
