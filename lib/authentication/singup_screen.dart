@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rentomatic_app/authentication/login_screen.dart';
 import 'package:rentomatic_app/authentication/room_info.dart';
 
 class SingUpScreen extends StatefulWidget {
@@ -141,6 +142,18 @@ class _SingUpScreenState extends State<SingUpScreen> {
                   ),
                 ),
               ),
+              TextButton(
+                child: const Text(
+                  "Already have an acccount  ? Login Here",
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (c) => LoginScreen()));
+                },
+              )
             ],
           ),
         ),
