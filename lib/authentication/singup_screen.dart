@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rentomatic_app/authentication/login_screen.dart';
 import 'package:rentomatic_app/authentication/room_info.dart';
 
@@ -12,6 +13,12 @@ class _SingUpScreenState extends State<SingUpScreen> {
   TextEditingController emailtextEditingController = TextEditingController();
   TextEditingController phonetextEditingController = TextEditingController();
   TextEditingController passwordtextEditingController = TextEditingController();
+
+  ValidateForm() {
+    if (nametextEditingController.text.length < 6) {
+      Fluttertoast.showToast(msg: "name must be atlest 6 Character");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +135,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
               ElevatedButton(
                 onPressed: () {
                   //todo
+                  ValidateForm();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (c) => RoomInfoScreen()));
                 },
