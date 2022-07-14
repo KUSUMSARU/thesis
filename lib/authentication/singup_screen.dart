@@ -17,6 +17,12 @@ class _SingUpScreenState extends State<SingUpScreen> {
   ValidateForm() {
     if (nametextEditingController.text.length < 6) {
       Fluttertoast.showToast(msg: "name must be atlest 6 Character");
+    } else if (!emailtextEditingController.text.contains("@")) {
+      Fluttertoast.showToast(msg: "Email is not valid");
+    } else if (phonetextEditingController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "phone number is empty");
+    } else if (passwordtextEditingController.text.length < 6) {
+      Fluttertoast.showToast(msg: "Password must be 6 character");
     }
   }
 
@@ -136,8 +142,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
                 onPressed: () {
                   //todo
                   ValidateForm();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (c) => RoomInfoScreen()));
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.lightGreenAccent,
