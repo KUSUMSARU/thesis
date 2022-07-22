@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rentomatic_app/global/global.dart';
+import 'package:rentomatic_app/splashScreen/splash_screen.dart';
 
 class RoomInfoScreen extends StatefulWidget {
   RoomInfoScreen({Key? key}) : super(key: key);
@@ -28,7 +30,13 @@ class _RoomInfoScreenState extends State<RoomInfoScreen> {
       "type": selectedroomtype,
     };
     DatabaseReference ownerRef = FirebaseDatabase.instance.ref().child("owner");
-    ownerRef.child(currentFirebaseUser!.uid).set(ownerRoomInfoMap);
+    ownerRef
+        .child(currentFirebaseUser!.uid)
+        .child("room_info")
+        .set(ownerRoomInfoMap);
+    Fluttertoast.showToast(msg: "Room detail has been save,congralution");
+    Navigator.push(
+        context, MaterialPageRoute(builder: (c) => MySplashScreen()));
   }
 
   @override
@@ -171,7 +179,15 @@ class _RoomInfoScreenState extends State<RoomInfoScreen> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (ownertextEditingController.text.isNotEmpty &&
+                      addresstextEditingController.text.isNotEmpty &&
+                      phonetextEditingController.text.isNotEmpty &&
+                      roomtypetextEditingController.text.isNotEmpty &&
+                      selectedroomtype != null) {
+                    saveRoomInfo();
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.lightGreenAccent,
                 ),
