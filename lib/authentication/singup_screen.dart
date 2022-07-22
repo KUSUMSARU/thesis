@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rentomatic_app/authentication/login_screen.dart';
 import 'package:rentomatic_app/authentication/room_info.dart';
+import 'package:rentomatic_app/global/global.dart';
 import 'package:rentomatic_app/widgets/progress_dialog.dart';
 
 class SingUpScreen extends StatefulWidget {
@@ -25,14 +28,50 @@ class _SingUpScreenState extends State<SingUpScreen> {
     } else if (passwordtextEditingController.text.length < 6) {
       Fluttertoast.showToast(msg: "Password must be 6 character");
     } else {
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext c) {
-            return ProgressDialog(
-              message: "Processing,Please wait...",
-            );
-          });
+      saveDriverInfoNow();
+    }
+  }
+
+  saveDriverInfoNow() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext c) {
+          return ProgressDialog(
+            message: "Processing,Please wait...",
+          );
+        });
+    final User? firebaseUser = (await fAuth
+            .createUserWithEmailAndPassword(
+      email: emailtextEditingController.text.trim(),
+      password: passwordtextEditingController.text.trim(),
+    )
+            .catchError((msg) {
+      Navigator.pop(context);
+      Fluttertoast.showToast(msg: "Error" + msg.toString());
+    }))
+        .user;
+    if (firebaseUser != null) {
+      Map ownerMap = {
+        "id": firebaseUser.uid,
+        "name": nametextEditingController.text.trim(),
+        "email": emailtextEditingController.text.trim(),
+        "phone": phonetextEditingController.text.trim(),
+      };
+      DatabaseReference ownerRef =
+          FirebaseDatabase.instance.ref().child("Owners");
+      ownerRef
+          .child(
+            firebaseUser.uid,
+          )
+          .set(ownerMap);
+      currentFirebaseUser = firebaseUser;
+      Fluttertoast.showToast(msg: "Account has been created");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (c) => RoomInfoScreen()));
+    } else {
+      Navigator.pop(context);
+      Fluttertoast.showToast(msg: "Account has not been created");
     }
   }
 
