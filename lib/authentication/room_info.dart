@@ -1,4 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:rentomatic_app/global/global.dart';
 
 class RoomInfoScreen extends StatefulWidget {
   RoomInfoScreen({Key? key}) : super(key: key);
@@ -15,6 +18,19 @@ class _RoomInfoScreenState extends State<RoomInfoScreen> {
 
   List<String> roomTypeList = ["Room", "Apartment", "House"];
   String? selectedroomtype;
+
+  saveRoomInfo() {
+    Map ownerRoomInfoMap = {
+      "owner_name": ownertextEditingController.text.trim(),
+      "Address": addresstextEditingController.text.trim(),
+      "phone ": phonetextEditingController.text.trim(),
+      "Houseinfo": roomtypetextEditingController.text.trim(),
+      "type": selectedroomtype,
+    };
+    DatabaseReference ownerRef = FirebaseDatabase.instance.ref().child("owner");
+    ownerRef.child(currentFirebaseUser!.uid).set(ownerRoomInfoMap);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,11 +171,7 @@ class _RoomInfoScreenState extends State<RoomInfoScreen> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  //todo
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (c) => RoomInfoScreen()));
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   primary: Colors.lightGreenAccent,
                 ),
